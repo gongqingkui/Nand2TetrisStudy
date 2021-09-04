@@ -1,0 +1,15 @@
+
+    /**
+    Not(in = sel[1],out = n1);
+    Not(in = sel[0],out = n0);
+
+    And(a = n1,b = n0,out = a1);
+    And(a = n1,b = sel[0],out = b1);
+    And(a = sel[1],b = n0,out = c1);
+    And(a = sel[1],b = sel[0],out = d1);
+
+    And(a = a1,b = in,out = a);
+    And(a = b1,b = in,out = b);
+    And(a = c1,b = in,out = c);
+    And(a = d1,b = in,out = d); 
+    */

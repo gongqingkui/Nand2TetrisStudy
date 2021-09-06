@@ -2,17 +2,20 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/a/Bit.hdl
+// Implements by gongqingkui At 126.com
 
 /**
  * 1-bit register:
  * If load[t] == 1 then out[t+1] = in[t]
  *                 else out does not change (out[t+1] = out[t])
  */
-
+ 
 CHIP Bit {
     IN in, load;
     OUT out;
 
     PARTS:
     // Put your code here:
+    Mux(a = out1,b = in,sel = load,out = inm);
+    DFF(in = inm,out = out,out = out1);
 }

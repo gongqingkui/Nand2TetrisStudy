@@ -18,11 +18,12 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
-    Or(a = inc,b = load,out = or1);
-    Or(a = or1,b = reset,out = load1);
-    Inc16(in = preout,out = incout);
-    Mux16(a= preout,b = incout,sel = inc,out = incout1);
-    Mux16(a= incout1,b = in,sel = load,out = inout1);
-    Mux16(a= inout1,b = false,sel = reset,out = resetout);
-    Register(in = resetout,load = load1,out = preout,out = out); 
+    Mux16(a= pout,b = false,sel = reset,out = resetout);
+    Inc16(in = resetout,out = incout);
+    Mux16(a= resetout,b = incout,sel = inc,out = incmuxout);
+    Mux16(a= incmuxout,b = in,sel = load,out = loadout);
+    Register(in = loadout,load = load,load= reset,load = inc,out = pout,out = out);
+
+
+
 }

@@ -39,15 +39,14 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here: 
-    Mux16(a = preoutM,b = instruction,sel = instruction[15],out = inoutmsel); 
-    ARegister(in = inoutmsel,out = aout,out[0..14]=addressM,load = instruction[5]);
-    Mux16(a = aout,b = inM,sel= instruction[12],out = amsel);
-    DRegister(in = preoutM,out = dout,load = instruction[4]);
+    // Put your code here:
+    Mux(a = preoutM,b = instruction,sel = instruction[15],out = inoutmsel);
+    Register(in = inoutmsel,out = aout,load = instruction[5]);
+    Mux(a = aout,b = inM,load = instruction[12],out = amsel);
+    Register(in = preoutM,out = dout,load = instruction[4]);
     ALU(x = dout,y = amsel,zx = instruction[11],nx=instruction[10],
-        zy = instruction[9],ny = instruction[8],
+        zy = instructioin[9],ny = instruction[8],
 	f = instruction[7],no = instruction[6],
 	out = preoutM,out = outM,
 	zr = zrf,ng = ngf
-        );
 }

@@ -40,14 +40,65 @@ CHIP CPU {
 
     PARTS:
     // Put your code here: 
-    Mux16(a = preoutM,b = instruction,sel = instruction[15],out = inoutmsel); 
-    ARegister(in = inoutmsel,out = aout,out[0..14]=addressM,load = instruction[5]);
-    Mux16(a = aout,b = inM,sel= instruction[12],out = amsel);
-    DRegister(in = preoutM,out = dout,load = instruction[4]);
-    ALU(x = dout,y = amsel,zx = instruction[11],nx=instruction[10],
-        zy = instruction[9],ny = instruction[8],
-	f = instruction[7],no = instruction[6],
+    //instruction decode
+    And16(a = instruction,b[0..15] = true,
+        out = out1,
+        out[0] = jgt, out[1] = jeq, out[2] = jlt,
+        out[3] = Mload, out[4] = Dload, out[5] = Aload,
+        out[6] = c6, out[7] = c5, out[8] = c4, out[9] = c3, out[10] = c2, out[11] = c1,
+        out[12] = AM,
+        out[15] = AC
+        );
+    //Control sig
+    Not(in = AC,out = ACn); 
+    And(a = AC,b = Dload,out = ACDload);
+    And(a = AC,b = Mload,out = ACMload,out = writeM); 
+    Or(a = ACn,b = Aload,out = AWrite);
+
+    // logic of A and D register
+    Mux16(a = preoutM,b = instruction,sel = ACn,out = inoutmsel); 
+    ARegister(in = inoutmsel,out = aout,out[0..14]=addressM,load = AWrite);
+    Mux16(a = aout,b = inM,sel= AM,out = amout);
+    DRegister(in = preoutM,out = dout,load = ACDload);
+
+
+    ALU(x = dout,y = amout,zx = c1,nx=c2,
+        zy = c3,ny =c4, f = c5,no =c6,
 	out = preoutM,out = outM,
 	zr = zrf,ng = ngf
         );
-}
+    PC(in = aout,reset = reset ,load = pcload,inc = true,out[0..14] = pc);
+
+    // JMP control sig
+    And(a = jgt,b = jeq,out = jgtjeq);
+    And(a = jeq,b = jlt,out = jeqle);
+    And(a = jlt,b = ngf,out = jltngf,out=le);
+    And(a = jeq,b = zrf,out = eq);
+    And(a = ngf,b = zrf,out = ngzr);
+    Not(in = ngf,out = ngfn);
+    Not(in = zrf,out = zrfn);
+
+    And(a = jgt,b = jlt,out = jgtjlt);
+    And(a = jgtjlt,b = zrfn,out = jne); 
+
+    Or(a = ngf,b = zrf,out = ngfAzrf);
+    And(a = ngfAzrf,b = jeqle,out = leeq);
+
+    Or(a = ngfn,b = zrf,out = ngfnAzrf);
+    And(a = ngfnAzrf,b = jgtjeq,out = gteq);
+
+    And(a = ngfn,b = zrfn,out = ngfnzrfn);
+    And(a = ngfnzrfn,b = jgt,out = gt);
+
+    And(a = jgtjeq,b = jlt,out = jmp); 
+    Or8Way(in[0] = jmp,
+           in[1] =le,
+	   in[2] =leeq,
+	   in[3] =gt,
+	   in[4] =jne,
+	   in[5] =eq,
+	   in[6] =gteq,
+	   in[7] =false,
+	   out=jmp1);
+    And(a = AC,b = jmp1,out = pcload); 
+    }

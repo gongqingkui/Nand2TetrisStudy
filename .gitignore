@@ -131,6 +131,9 @@ dmypy.json
 # vim
 *.swo
 *.swp
+*.swn
 
 #element of computer 
 *.out
+*.cmp
+*.tst

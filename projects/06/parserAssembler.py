@@ -1,4 +1,4 @@
-def parser(asm = None):
+def openAsmFile(asm = None):
     with open(asm,'r',encoding='ANSI') as f:
         commandBuffer = f.readlines()
     return commandBuffer
@@ -38,6 +38,8 @@ def comp(command):
     if commandType(command) in ['C_COMMAND']:
         if command.find('=')!=-1:
             return command[command.find('=')+1:]
+        elif command.find(';')!=-1:
+            return command[0:command.find(';')]
         else:
             return 'null'
     return None
@@ -51,8 +53,8 @@ def jump(command):
     return None
 
 if __name__ == '__main__':
-    commandBuffer = parser('add/Add.asm')
-    commandBuffer = parser('max/Max.asm')
+    commandBuffer = openAsmFile('add/Add.asm')
+    commandBuffer = openAsmFile('max/Max.asm')
     while hasMoreCommand(commandBuffer):
         c= advance(commandBuffer)
         print('%20s%10s%10s%10s%10s%10s'%(c,commandType(c),symbol(c),dest(c),comp(c),jump(c)))

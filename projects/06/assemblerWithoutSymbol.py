@@ -3,15 +3,19 @@
 # author:gongqingkui AT 126.com
 # date:2021-09-18
 
+import sys
 from parserAssembler import openAsmFile, hasMoreCommand, advance, commandType, symbol, dest, comp, jump
 from codeAssembler import destCode, compCode, jumpCode
 
 if __name__ == '__main__':
-    asmFile = 'max/MaxL.asm'
+    if sys.argv[1]:
+        asmFile = sys.argv[1]
+    else:    
+        asmFile = 'max/MaxL.asm'
     hackFile = asmFile[:-3] + 'hack'
     hackFile = open(hackFile, 'w', encoding='ANSI')
 
-    commandBuffer = openAsmFile('max/MaxL.asm')
+    commandBuffer = openAsmFile(asmFile)
     while hasMoreCommand(commandBuffer):
         c = advance(commandBuffer)
         to = '%20s%10s%10s%10s%10s%10s' % (

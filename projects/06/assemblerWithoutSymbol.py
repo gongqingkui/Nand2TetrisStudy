@@ -26,7 +26,7 @@ if __name__ == '__main__':
             print(to)
             hackFile.write(to)
         elif commandType(c) in ['C_COMMAND']:
-            print('%20s%10s%10s%10s' % (c, dest(c), comp(c), jump(c)))
+            #print('%20s%10s%10s%10s' % (c, dest(c), comp(c), jump(c)))
             to = '111%7s%3s%3s\n' % (
                 compCode(comp(c)), destCode(dest(c)), jumpCode(jump(c)))
             print(to)

@@ -18,7 +18,7 @@ def advance(commandBuffer):
     if c.find('/'):
         c = c[:c.find('/')]
     del commandBuffer[0]
-    return c.strip()
+    return c.strip().replace(' ','')
 
 
 def commandType(command):

@@ -4,6 +4,8 @@
 # author:gongqingkui AT 126.com
 # date:2022-05-12
 
+from parserVMTranslator import commandType,arg2
+
 f = None
 
 def CodeWriter(file_):
@@ -13,11 +15,35 @@ def CodeWriter(file_):
 
     
 def writeArithmetic(command):
-    f.write(command)
+    c = command.split(' ')
+    if commandType(command) == 'C_ARITHMETIC':
+        if c[0] in ['add','sub','and','or']:
+            to = '@0\nAM=M-1\nD=M\nA=A-1\nM=D%sM'
+            oper = ''
+            if c[0] == 'add':
+                oper = '+'
+            elif c[0] == 'sub':
+                oper = '-'
+            elif c[0] == 'and':
+                oper = '&'
+            elif c[0] == 'or':
+                oper = '|'
+            to = to%oper 
+        elif c[0] in ['neg','not']:
+            to = '@0\nA=M-1\nM=%M'
+            oper = ''
+            if c[0] == 'neg':
+                oper = '-'
+            elif c[0] == 'not':
+                oper = '!'
+            to = to%oper 
+        f.write(to+'\n')
 
 
 def writePushPop(command,segment,index):
-    f.write('%s%s%s'%(command,segment,index))
+    if commandType(command) == 'C_PUSH' and segment == 'constant':
+        to = '@%s\nD=A\n@SP\nA=M\nM=D\n@0\nM=M+1'%index
+        f.write(to+'\n')
 
 
 def close():

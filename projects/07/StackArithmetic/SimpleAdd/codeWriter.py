@@ -18,7 +18,7 @@ def writeArithmetic(command):
     c = command.split(' ')
     if commandType(command) == 'C_ARITHMETIC':
         if c[0] in ['add','sub','and','or']:
-            to = '@0\nAM=M-1\nD=M\nA=A-1\nM=D%sM'
+            to = '@SP\nAM=M-1\nD=M\nA=A-1\nM=D%sM'
             oper = ''
             if c[0] == 'add':
                 oper = '+'
@@ -30,7 +30,7 @@ def writeArithmetic(command):
                 oper = '|'
             to = to%oper 
         elif c[0] in ['neg','not']:
-            to = '@0\nA=M-1\nM=%M'
+            to = '@SP\nA=M-1\nM=%M'
             oper = ''
             if c[0] == 'neg':
                 oper = '-'
@@ -42,7 +42,7 @@ def writeArithmetic(command):
 
 def writePushPop(command,segment,index):
     if commandType(command) == 'C_PUSH' and segment == 'constant':
-        to = '@%s\nD=A\n@SP\nA=M\nM=D\n@0\nM=M+1'%index
+        to = '@%s\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1'%index
         f.write(to+'\n')
 
 

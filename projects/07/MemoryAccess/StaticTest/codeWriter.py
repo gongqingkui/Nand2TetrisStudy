@@ -8,7 +8,7 @@ from parserVMTranslator import commandType,arg2
 
 f = None
 jmp_index = 0
-segment_map = {'local':'LCL','argument':'ARG','this':'THIS','that':'THAT','temp':'R5','pointer':'R3'}
+segment_map = {'local':'LCL','argument':'ARG','this':'THIS','that':'THAT','temp':'R5','pointer':'R3','static':'16'}
 
 def CodeWriter(file_):
     global f
@@ -61,7 +61,7 @@ def writePushPop(command,segment,index):
     if commandType(command) == 'C_PUSH':
         if segment == 'constant':
             to = '//push constant\n@%s\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%index
-        if segment == 'temp':
+        if segment in ['temp','static']:
             to = '//push temp\n@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%(index,segment_map[segment])
         if segment == 'pointer':
             to = '//push pointer\n@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%(index,segment_map[segment])
@@ -69,10 +69,8 @@ def writePushPop(command,segment,index):
             to = '//push\n@%s\nD=A\n@%s\nA=M\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%(index,segment_map[segment])
         f.write(to)
     if commandType(command) == 'C_POP':
-        #TODO:@add is static variable in static segment.It will make mistake when meet static segment oper!
-        # eg.push static 0 will overwriten RAM[16] 
-        # Try some other implements without @add !!!
-        if segment == 'temp':
+        if segment in ['temp','static']:
+        #if segment == 'temp':
             to = '//pop temp\n@%s\nD=A\n@%s\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D\n'%(index,segment_map[segment]) 
         if segment == 'pointer':
             to = '//pop pointer\n@%s\nD=A\n@%s\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D\n'%(index,segment_map[segment]) 

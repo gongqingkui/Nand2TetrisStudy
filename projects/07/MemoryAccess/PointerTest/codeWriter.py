@@ -87,4 +87,4 @@ def close():
 
 def writeHeadBlock():
     #f.write('@true\nM=-1\n@false\nM=0'+'\n')
-    f.write('//This File is generate by translator.\n\n')
+    f.write('//This File is generate by translator.\n//Implements by gongqingkui at 126.com\n\n')

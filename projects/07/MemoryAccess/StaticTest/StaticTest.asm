@@ -1,4 +1,5 @@
 //This File is generate by translator.
+//Implements by gongqingkui at 126.com
 
 //push constant
 @111

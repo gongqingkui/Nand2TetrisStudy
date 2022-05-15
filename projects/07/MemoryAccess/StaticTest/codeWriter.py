@@ -57,7 +57,7 @@ def writeArithmetic(command):
 
 
 def writePushPop(command,segment,index):
-    print(command,segment,index)
+    #print(command,segment,index)
     if commandType(command) == 'C_PUSH':
         if segment == 'constant':
             to = '//push constant\n@%s\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%index

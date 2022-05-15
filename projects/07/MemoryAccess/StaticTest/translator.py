@@ -20,27 +20,16 @@ if __name__ == '__main__':
             file_ = sys.argv[1]
             CodeWriter(file_[:-2]+'asm') 
             writeHeadBlock() 
-            commands = parser(file_)
-            while hasMoreCommand(commands):
-                c = advance(commands)
-                #print('%20s%10s%10s%10s' % (c, commandType(c), arg1(c),arg2(c)))
-                writeArithmetic(c)
-                writePushPop(c,arg1(c),arg2(c))
+            vm2asm(file_)
             close()
         elif os.path.isdir(sys.argv[1]):
             dir_ = sys.argv[1]
             for root,sub,files_ in os.walk(dir_):
-                #print(os.path.exists(dir_+'.asm'))
                 CodeWriter(dir_+'.asm') 
                 writeHeadBlock() 
                 for file_ in files_: 
                     if file_.endswith('.vm'):
                         file_ = os.path.join(root,file_)
-                        print(os.path.exists(file_))
-                        commands = parser(file_)
-                        while hasMoreCommand(commands):
-                            c = advance(commands)
-                            print('%20s%10s%10s%10s' % (c, commandType(c), arg1(c),arg2(c)))
-                            writeArithmetic(c)
-                            writePushPop(c,arg1(c),arg2(c))
+                        #print(os.path.exists(file_))
+                        vm2asm(file_)
                 close()

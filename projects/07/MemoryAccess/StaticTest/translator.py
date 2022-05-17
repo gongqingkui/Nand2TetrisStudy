@@ -16,16 +16,18 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         print('input file or dir:')
     elif os.path.exists(sys.argv[1]):
+        #process of single file
         if os.path.isfile(sys.argv[1]):
             file_ = sys.argv[1]
             CodeWriter(file_[:-2]+'asm') 
             writeHeadBlock() 
             vm2asm(file_)
             close()
+        #process of dir
         elif os.path.isdir(sys.argv[1]):
             dir_ = sys.argv[1]
             for root,sub,files_ in os.walk(dir_):
-                CodeWriter(dir_+'.asm') 
+                CodeWriter(os.path.join(dir_,os.path.dirname(dir_)+'.asm'))
                 writeHeadBlock() 
                 for file_ in files_: 
                     if file_.endswith('.vm'):

@@ -21,7 +21,7 @@ def writeArithmetic(command):
     c = command.split(' ')
     if commandType(command) == 'C_ARITHMETIC':
         if c[0] in ['add','sub','and','or']:
-            to = '//Arithmetic\n@SP\nAM=M-1\nD=M\nA=A-1\nM=M%sD'
+            to = '@SP\nAM=M-1\nD=M\nA=A-1\nM=M%sD//%s\n'
             oper = ''
             if c[0] == 'add':
                 oper = '+'
@@ -31,9 +31,9 @@ def writeArithmetic(command):
                 oper = '&'
             elif c[0] == 'or':
                 oper = '|'
-            to = to%oper 
+            to = to%(oper,c[0]) 
         if c[0] in ['eq','lt','gt']:
-            to = '//comparse\n@SP\nAM=M-1\nD=M\nA=A-1\nMD=M-D\n@TRUE_%s\nD;%s\n@SP\nD=A\n@0\nA=M-1\nM=D\n@CONTINUE_%s\nD;JMP\n(TRUE_%s)\n@1\nD=-A\n@SP\nA=M-1\nM=D\n(CONTINUE_%s)'
+            to = '@SP\nAM=M-1\nD=M\nA=A-1\nMD=M-D\n@TRUE_%s\nD;%s\n@SP\nD=A\n@0\nA=M-1\nM=D\n@CONTINUE_%s\nD;JMP\n(TRUE_%s)\n@1\nD=-A\n@SP\nA=M-1\nM=D\n(CONTINUE_%s)//%s\n'
             oper = ''
             if c[0] == 'eq':
                 oper = 'JEQ'
@@ -43,39 +43,39 @@ def writeArithmetic(command):
                 oper = 'JGT'
             elif c[0] == 'or':
                 oper = '|'
-            to = to%(jmp_index,oper,jmp_index,jmp_index,jmp_index) 
+            to = to%(jmp_index,oper,jmp_index,jmp_index,jmp_index,c[0]) 
             jmp_index += 1
         elif c[0] in ['neg','not']:
-            to = '//single element - !\n@SP\nA=M-1\nM=%sM'
+            to = '@SP\nA=M-1\nM=%sM//%s\n'
             oper = ''
             if c[0] == 'neg':
                 oper = '-'
             elif c[0] == 'not':
                 oper = '!'
-            to = to%oper 
-        f.write(to+'\n')
+            to = to%(oper,c[0])
+        f.write(to)
 
 
 def writePushPop(command,segment,index):
     #print(command,segment,index)
     if commandType(command) == 'C_PUSH':
         if segment == 'constant':
-            to = '//push constant\n@%s\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%index
+            to = '@%s\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1//push constant %s\n'%(index,index)
         if segment in ['temp','static']:
-            to = '//push temp\n@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%(index,segment_map[segment])
+            to = '@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push temp %s\n'%(index,segment_map[segment],index)
         if segment == 'pointer':
-            to = '//push pointer\n@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%(index,segment_map[segment])
+            to = '@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push pointer %s\n'%(index,segment_map[segment],index)
         if segment in ['local','argument','this','that']:
-            to = '//push\n@%s\nD=A\n@%s\nA=M\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n'%(index,segment_map[segment])
+            to = '@%s\nD=A\n@%s\nA=M\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push %s %s\n'%(index,segment_map[segment],segment,index)
         f.write(to)
     if commandType(command) == 'C_POP':
         if segment in ['temp','static']:
         #if segment == 'temp':
-            to = '//pop temp\n@%s\nD=A\n@%s\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D\n'%(index,segment_map[segment]) 
+            to = '@%s\nD=A\n@%s\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D//pop temp %s\n'%(index,segment_map[segment],index) 
         if segment == 'pointer':
-            to = '//pop pointer\n@%s\nD=A\n@%s\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D\n'%(index,segment_map[segment]) 
+            to = '@%s\nD=A\n@%s\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D//pop pointer %s \n'%(index,segment_map[segment],index) 
         if segment in ['local','argument','this','that']:
-            to = '//pop\n@%s\nD=A\n@%s\nA=M\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D\n'%(index,segment_map[segment]) 
+            to = '@%s\nD=A\n@%s\nA=M\nD=A+D\n@add\nM=D\n@SP\nAM=M-1\nD=M\n@add\nA=M\nM=D//pop %s %s\n'%(index,segment_map[segment],segment,index) 
         f.write(to) 
 
 
@@ -84,5 +84,4 @@ def close():
 
 
 def writeHeadBlock():
-    #f.write('@true\nM=-1\n@false\nM=0'+'\n')
     f.write('//This File is generate by translator.\n//Implements by gongqingkui at 126.com\n\n')

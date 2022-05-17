@@ -1,31 +1,27 @@
 //This File is generate by translator.
 //Implements by gongqingkui at 126.com
 
-//push constant
 @111
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//push constant
+M=M+1//push constant 111
 @333
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//push constant
+M=M+1//push constant 333
 @888
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//pop temp
+M=M+1//push constant 888
 @8
 D=A
 @16
@@ -37,8 +33,7 @@ AM=M-1
 D=M
 @add
 A=M
-M=D
-//pop temp
+M=D//pop temp 8
 @3
 D=A
 @16
@@ -50,8 +45,7 @@ AM=M-1
 D=M
 @add
 A=M
-M=D
-//pop temp
+M=D//pop temp 3
 @1
 D=A
 @16
@@ -63,8 +57,7 @@ AM=M-1
 D=M
 @add
 A=M
-M=D
-//push temp
+M=D//pop temp 1
 @3
 D=A
 @16
@@ -74,8 +67,7 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//push temp
+M=M+1//push temp 3
 @1
 D=A
 @16
@@ -85,14 +77,12 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//Arithmetic
+M=M+1//push temp 1
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M-D
-//push temp
+M=M-D//sub
 @8
 D=A
 @16
@@ -102,10 +92,9 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//Arithmetic
+M=M+1//push temp 8
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M+D
+M=M+D//add

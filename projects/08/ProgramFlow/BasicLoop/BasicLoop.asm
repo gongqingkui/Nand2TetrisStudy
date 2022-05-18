@@ -14,7 +14,7 @@ D=M
 @LCL
 A=M
 M=D//pop LCL 0
-(BasicLoop.loop_start)//label loop_start
+(BasicLoop.loop_start)//label BasicLoop.loop_start
 @0
 D=A
 @ARG
@@ -88,6 +88,11 @@ A=M
 M=D
 @SP
 M=M+1//push argument 0
+@SP
+M=M-1
+D=M
+@BasicLoop.loop_start
+D;JNE//if-goto BasicLoop.loop_start
 @0
 D=A
 @LCL

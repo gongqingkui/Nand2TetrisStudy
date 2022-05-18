@@ -1,5 +1,5 @@
 from parserVMTranslator import parser,hasMoreCommand,advance,commandType,arg1,arg2
-from codeWriter import asm_file,CodeWriter,writeArithmetic,writePushPop,close,writeHeadBlock,writeLabel
+from codeWriter import asm_file,CodeWriter,writeArithmetic,writePushPop,close,writeHeadBlock,writeLabel,writeGoto,writeIf
 import os
 import sys
 
@@ -11,6 +11,8 @@ def vm2asm(file_):
         writeArithmetic(c)
         writePushPop(c,arg1(c),arg2(c))
         writeLabel(c,arg1(c))
+        writeGoto(c,arg1(c))
+        writeIf(c,arg1(c))
 
 
 if __name__ == '__main__':

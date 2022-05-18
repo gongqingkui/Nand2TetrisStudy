@@ -1,9 +1,10 @@
 from parserVMTranslator import parser,hasMoreCommand,advance,commandType,arg1,arg2
-from codeWriter import asm_file,CodeWriter,writeArithmetic,writePushPop,close,writeHeadBlock,writeLabel,writeGoto,writeIf
+from codeWriter import asm_file,CodeWriter,writeArithmetic,writePushPop,close,writeHeadBlock,writeLabel,writeGoto,writeIf,writeFunction,writeReturn,writeCall
 import os
 import sys
 
 def vm2asm(file_): 
+    #print(file_)
     commands = parser(file_)
     while hasMoreCommand(commands):
         c = advance(commands)
@@ -13,6 +14,9 @@ def vm2asm(file_):
         writeLabel(c,arg1(c))
         writeGoto(c,arg1(c))
         writeIf(c,arg1(c))
+        writeFunction(c,arg1(c),arg2(c)) 
+        writeReturn(c)
+        writeCall(c,arg1(c),arg2(c)) 
 
 
 if __name__ == '__main__':
@@ -35,6 +39,6 @@ if __name__ == '__main__':
                 for file_ in files_: 
                     if file_.endswith('.vm'):
                         file_ = os.path.join(root,file_)
-                        #print(os.path.exists(file_))
+                        #print(file_)
                         vm2asm(file_)
-                close()
+            close()

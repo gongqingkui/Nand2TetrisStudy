@@ -1,4 +1,5 @@
 //This File is generate by translator.
+//Implements by gongqingkui at 126.com
 
 @17
 D=A
@@ -6,14 +7,14 @@ D=A
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 17
 @17
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 17
 @SP
 AM=M-1
 D=M
@@ -34,21 +35,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_0)
+(CONTINUE_0)//eq
 @17
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 17
 @16
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 16
 @SP
 AM=M-1
 D=M
@@ -69,21 +70,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_1)
+(CONTINUE_1)//eq
 @16
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 16
 @17
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 17
 @SP
 AM=M-1
 D=M
@@ -104,21 +105,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_2)
+(CONTINUE_2)//eq
 @892
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 892
 @891
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 891
 @SP
 AM=M-1
 D=M
@@ -139,21 +140,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_3)
+(CONTINUE_3)//lt
 @891
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 891
 @892
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 892
 @SP
 AM=M-1
 D=M
@@ -174,21 +175,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_4)
+(CONTINUE_4)//lt
 @891
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 891
 @891
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 891
 @SP
 AM=M-1
 D=M
@@ -209,21 +210,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_5)
+(CONTINUE_5)//lt
 @32767
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 32767
 @32766
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 32766
 @SP
 AM=M-1
 D=M
@@ -244,21 +245,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_6)
+(CONTINUE_6)//gt
 @32766
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 32766
 @32767
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 32767
 @SP
 AM=M-1
 D=M
@@ -279,21 +280,21 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_7)
+(CONTINUE_7)//gt
 @32766
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 32766
 @32766
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 32766
 @SP
 AM=M-1
 D=M
@@ -314,65 +315,65 @@ D=-A
 @SP
 A=M-1
 M=D
-(CONTINUE_8)
+(CONTINUE_8)//gt
 @57
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 57
 @31
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 31
 @53
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 53
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M+D
+M=M+D//add
 @112
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 112
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M-D
+M=M-D//sub
 @SP
 A=M-1
-M=-M
+M=-M//neg
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M&D
+M=M&D//and
 @82
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
+M=M+1//push constant 82
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M|D
+M=M|D//or
 @SP
 A=M-1
-M=!M
+M=!M//not

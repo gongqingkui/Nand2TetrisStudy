@@ -1,159 +1,118 @@
 //This File is generate by translator.
+//Implements by gongqingkui at 126.com
 
-//push constant
 @10
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//pop
-@0
-D=A
-@LCL
-A=M
-D=A+D
-@add
-M=D
+M=M+1//push constant 10
 @SP
 AM=M-1
 D=M
-@add
+@LCL
 A=M
-M=D
-//push constant
+M=D//pop local 0
 @21
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//push constant
+M=M+1//push constant 21
 @22
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//pop
-@2
-D=A
-@ARG
-A=M
-D=A+D
-@add
-M=D
+M=M+1//push constant 22
 @SP
 AM=M-1
 D=M
-@add
-A=M
-M=D
-//pop
-@1
-D=A
 @ARG
 A=M
-D=A+D
-@add
-M=D
+A=A+1
+A=A+1
+M=D//pop argument 2
 @SP
 AM=M-1
 D=M
-@add
+@ARG
 A=M
-M=D
-//push constant
+A=A+1
+M=D//pop argument 1
 @36
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//pop
-@6
-D=A
-@THIS
-A=M
-D=A+D
-@add
-M=D
+M=M+1//push constant 36
 @SP
 AM=M-1
 D=M
-@add
+@THIS
 A=M
-M=D
-//push constant
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+M=D//pop this 6
 @42
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//push constant
+M=M+1//push constant 42
 @45
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//pop
-@5
-D=A
-@THAT
-A=M
-D=A+D
-@add
-M=D
+M=M+1//push constant 45
 @SP
 AM=M-1
 D=M
-@add
-A=M
-M=D
-//pop
-@2
-D=A
 @THAT
 A=M
-D=A+D
-@add
-M=D
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+M=D//pop that 5
 @SP
 AM=M-1
 D=M
-@add
+@THAT
 A=M
-M=D
-//push constant
+A=A+1
+A=A+1
+M=D//pop that 2
 @510
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1
-//pop temp
-@6
-D=A
-@R5
-D=A+D
-@add
-M=D
+M=M+1//push constant 510
 @SP
 AM=M-1
 D=M
-@add
-A=M
-M=D
-//push
+@R5
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+M=D//pop R5 6
 @0
 D=A
 @LCL
@@ -164,8 +123,7 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//push
+M=M+1//push local 0
 @5
 D=A
 @THAT
@@ -176,14 +134,12 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//Arithmetic
+M=M+1//push that 5
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M+D
-//push
+M=M+D//add
 @1
 D=A
 @ARG
@@ -194,14 +150,12 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//Arithmetic
+M=M+1//push argument 1
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M-D
-//push
+M=M-D//sub
 @6
 D=A
 @THIS
@@ -212,8 +166,7 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//push
+M=M+1//push this 6
 @6
 D=A
 @THIS
@@ -224,20 +177,17 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//Arithmetic
+M=M+1//push this 6
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M+D
-//Arithmetic
+M=M+D//add
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M-D
-//push temp
+M=M-D//sub
 @6
 D=A
 @R5
@@ -247,10 +197,9 @@ D=M
 A=M
 M=D
 @SP
-M=M+1
-//Arithmetic
+M=M+1//push temp 6
 @SP
 AM=M-1
 D=M
 A=A-1
-M=M+D
+M=M+D//add

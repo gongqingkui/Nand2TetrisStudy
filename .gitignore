@@ -137,3 +137,6 @@ dmypy.json
 *.out
 *.cmp
 *.tst
+slides/
+tools/
+tutorials/

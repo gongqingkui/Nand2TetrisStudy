@@ -5,6 +5,7 @@
 # date:2022-05-12
 
 from parserVMTranslator import commandType,arg2
+import os
 
 asm_file = None
 jmp_index = 0
@@ -78,11 +79,23 @@ def writePushPop(command,segment,index):
         asm_file.write(asm_code) 
 
 
+def fileBaseName(fname):
+    return os.path.basename(fname.name)[:-4]
+
+
 def writeLabel(command,label):
     if commandType(command) == 'C_LABEL':
-        asm_code = '(%s.%s)\n//label %s\n'%(asm_file.name,label,label)
-        print(command,label,asm_code)
-    asm_file.write(asm_code) 
+        vmFileName = fileBaseName(asm_file)
+        asm_code = '(%s.%s)//label %s\n'%(vmFileName,label,label)
+        #print(command,label,asm_code)
+        asm_file.write(asm_code) 
+
+
+def writeGoto(command,label):
+    if commandType(command) == 'C_GOTO':
+        vmFileName = fileBaseName(asm_file)
+        asm_code = '@%s.%s\n0;JMP//goto %s\n'%(vmFileName,label,label)
+        asm_file.write(asm_code) 
 
 
 def close():

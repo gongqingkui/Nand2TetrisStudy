@@ -22,42 +22,33 @@ A=M
 M=D
 @SP
 M=M+1//push constant 888
-@8
-D=A
-@16
-D=A+D
-@add
-M=D
 @SP
 AM=M-1
 D=M
-@add
-A=M
-M=D//pop temp 8
-@3
-D=A
 @16
-D=A+D
-@add
-M=D
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+A=A+1
+M=D//pop 16 8
 @SP
 AM=M-1
 D=M
-@add
-A=M
-M=D//pop temp 3
-@1
-D=A
 @16
-D=A+D
-@add
-M=D
+A=A+1
+A=A+1
+A=A+1
+M=D//pop 16 3
 @SP
 AM=M-1
 D=M
-@add
-A=M
-M=D//pop temp 1
+@16
+A=A+1
+M=D//pop 16 1
 @3
 D=A
 @16

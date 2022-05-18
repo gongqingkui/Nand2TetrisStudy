@@ -88,7 +88,7 @@ def writeLabel(command,label):
         vmFileName = fileBaseName(asm_file)
         label = '%s.%s'%(vmFileName,label)
         asm_code = '(%s)//label %s\n'%(label,label)
-        print(command,label,asm_code)
+        #print(command,label,asm_code)
         asm_file.write(asm_code) 
 
 
@@ -97,7 +97,7 @@ def writeGoto(command,label):
         vmFileName = fileBaseName(asm_file)
         label = '%s.%s'%(vmFileName,label)
         asm_code = '@%s\n0;JMP//goto %s\n'%(label,label)
-        print(command,label,asm_code)
+        #print(command,label,asm_code)
         asm_file.write(asm_code) 
 
 
@@ -106,7 +106,7 @@ def writeIf(command,label):
         vmFileName = fileBaseName(asm_file)
         label = '%s.%s'%(vmFileName,label)
         asm_code = '@SP\nAM=M-1\nD=M\n@%s\nD;JNE//if-goto %s\n'%(label,label)
-        print(command,label,asm_code)
+        #print(command,label,asm_code)
         asm_file.write(asm_code) 
         
 

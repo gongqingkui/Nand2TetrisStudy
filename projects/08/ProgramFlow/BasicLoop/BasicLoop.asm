@@ -89,7 +89,7 @@ M=D
 @SP
 M=M+1//push argument 0
 @SP
-M=M-1
+AM=M-1
 D=M
 @BasicLoop.loop_start
 D;JNE//if-goto BasicLoop.loop_start

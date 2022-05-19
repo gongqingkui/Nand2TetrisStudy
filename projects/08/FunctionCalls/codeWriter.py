@@ -36,7 +36,7 @@ def writeArithmetic(command):
                 oper = '|'
             asm_code = asm_code%(oper,c[0]) 
         if c[0] in ['eq','lt','gt']:
-            asm_code = '@SP\nAM=M-1\nD=M\nA=A-1\nMD=M-D\n@TRUE_%s\nD;%s\n@SP\nD=A\n@0\nA=M-1\nM=D\n@CONTINUE_%s\n0;JMP\n(TRUE_%s)\n@1\nD=-A\n@SP\nA=M-1\nM=D\n(CONTINUE_%s)//%s\n'
+            asm_code = '@SP\nAM=M-1\nD=M\nA=A-1\nMD=M-D//arg1-arg2\n@TRUE_%s\nD;%s\n@SP//begin FALSE\nD=A\n@0\nA=M-1\nM=D\n@CONTINUE_%s\n0;JMP//end FALSE\n(TRUE_%s)//begin TRUE\n@1\nD=-A\n@SP\nA=M-1\nM=D//end TRUE\n(CONTINUE_%s)//%s\n'
             oper = ''
             if c[0] == 'eq':
                 oper = 'JEQ'
@@ -141,28 +141,38 @@ def writeReturn(command):
         asm_code += '@%s$FRAME\nAM=M-1\nD=M\n@ARG\nM=D//ARG=*(FRAME-3)\n'%cfn
         asm_code += '@%s$FRAME\nAM=M-1\nD=M\n@LCL\nM=D//LCL=*(FRAME-4)\n'%cfn
         asm_code += '@%s$FRAME\nAM=M-1\nD=M\n@%s$RET\nM=D//RET=*(FRAME-5)\n'%(cfn,cfn)
-        asm_code += '@%s$RET\nA=M\n0;JMP//goto RET//return ***over.\n'%cfn
+        asm_code += '@%s$RET\nA=M\n0;JMP//goto RET//***over return.\n'%cfn
         asm_file.write(asm_code) 
         current_function_name = None
 
 
 def writeCall(command,functionName,numArgs):
+    global call_index
     if commandType(command) == 'C_CALL':
-        asm_code = '@%s$return_%s//***begin call\nD=A\n@sp\nA=M\M=D\n@SP\nM=M+1//push return_address'%(functionName,call_index)
+        asm_code = '@%s$ret-add-%d//***begin call\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1//push return-address\n'%(functionName,call_index)
         asm_code += '@LCL\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push LCL\n'
-        asm_code += '@ARG\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push LCL\n'
-        asm_code += '@THIS\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push LCL\n'
-        asm_code += '@THAT\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push LCL\n' 
-        asm_code += '@SP\nD=A\n@%s\nD=D-A\n@5\nD=D-A\n@ARG\nM=D//ARG=SP-n-5\n'%numArgs
-        asm_code += '@SP\nD=A\n@LCL\nM=D//LCL=SP\n'
-        asm_code += '@%s\n0;JMP//goto f\n'%functionName
-        asm_code += '(%s$return_%s)//return_address\n'%(functionName,call_index)
+        asm_code += '@ARG\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push ARG\n'
+        asm_code += '@THIS\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push THIS\n'
+        asm_code += '@THAT\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push THAT\n' 
+        asm_code += '@SP\nD=M\n@%s\nD=D-A\n@5\nD=D-A\n@ARG\nM=D//ARG=SP-n-5\n'%numArgs
+        asm_code += '@SP\nD=M\n@LCL\nM=D//LCL=SP\n'
+        asm_code += '@%s\n0;JMP//goto f//***end call %s %s\n'%(functionName,functionName,numArgs)
+        asm_code += '(%s$ret-add-%d)//return-address\n'%(functionName,call_index)
 
         asm_file.write(asm_code) 
+        call_index += 1
 
 
 def writeHeadBlock():
-    asm_file.write('//This File is generate by translator.\n//Implements by gongqingkui at 126.com\n\n')
+    #asm_file.write('//This File is generate by translator.\n//Implements by gongqingkui at 126.com\n\n')
+    writeBootStrap()
+
+
+def writeBootStrap():
+    #asm_file.write('@256\nD=A\n@SP\nA=M\nM=D//SP=256\n')
+    #asm_file.write('@261\nD=A\n@SP\nA=M\nM=D//SP=256\n')
+    asm_file.write('@sys.init\n0;JMP//call sys.init\n')
+    pass
 
 
 def close():

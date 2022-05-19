@@ -1,5 +1,5 @@
 from parserVMTranslator import parser,hasMoreCommand,advance,commandType,arg1,arg2
-from codeWriter import asm_file,CodeWriter,writeArithmetic,writePushPop,close,writeHeadBlock,writeLabel,writeGoto,writeIf,writeFunction,writeReturn,writeCall
+from codeWriter import asm_file,CodeWriter,writeArithmetic,writePushPop,close,writeHeadBlock,writeLabel,writeGoto,writeIf,writeFunction,writeReturn,writeCall,writeBootStrap
 import os
 import sys
 

@@ -7,7 +7,7 @@ D=A
 M=D//SP=256
 @sys.init
 0;JMP
-//call sys.init
+//jump to sys.init
 (class1.set)//function class1.set 0
 @0
 D=A
@@ -19,9 +19,11 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 0
+M=M+1
+//push argument 0
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @Class1.0
 M=D
@@ -36,9 +38,11 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 1
+M=M+1
+//push argument 1
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @Class1.1
 M=D
@@ -49,7 +53,8 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 0
+M=M+1
+//push constant 0
 @LCL//***begin return
 D=M
 @class1.set$FRAME
@@ -102,16 +107,19 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push static Class1.0
+M=M+1
+//push static Class1.0
 @Class1.1
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push static Class1.1
+M=M+1
+//push static Class1.1
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M-D//sub
@@ -171,9 +179,11 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 0
+M=M+1
+//push argument 0
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @Class2.0
 M=D
@@ -188,9 +198,11 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 1
+M=M+1
+//push argument 1
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @Class2.1
 M=D
@@ -201,7 +213,8 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 0
+M=M+1
+//push constant 0
 @LCL//***begin return
 D=M
 @class2.set$FRAME
@@ -254,16 +267,19 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push static Class2.0
+M=M+1
+//push static Class2.0
 @Class2.1
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push static Class2.1
+M=M+1
+//push static Class2.1
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M-D//sub
@@ -319,14 +335,16 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 6
+M=M+1
+//push constant 6
 @8
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1//push constant 8
+M=M+1
+//push constant 8
 @class1.set$ret-add-0//***begin call
 D=A
 @SP
@@ -340,28 +358,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @2
@@ -378,7 +400,8 @@ M=D//LCL=SP
 0;JMP//goto f//***end call class1.set 2
 (class1.set$ret-add-0)//return-address
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R5
 M=D//pop R5 0
@@ -388,14 +411,16 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 23
+M=M+1
+//push constant 23
 @15
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1//push constant 15
+M=M+1
+//push constant 15
 @class2.set$ret-add-1//***begin call
 D=A
 @SP
@@ -409,28 +434,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @2
@@ -447,7 +476,8 @@ M=D//LCL=SP
 0;JMP//goto f//***end call class2.set 2
 (class2.set$ret-add-1)//return-address
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R5
 M=D//pop R5 0
@@ -464,28 +494,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @0
@@ -514,28 +548,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @0

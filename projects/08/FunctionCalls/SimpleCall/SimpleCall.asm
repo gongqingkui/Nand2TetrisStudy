@@ -1,10 +1,13 @@
+//This File is generate by translator.
+//Implements by gongqingkui at 126.com
+
 @261
 D=A
 @SP
 M=D//SP=256
 @sys.init
 0;JMP
-//call sys.init
+//jump to sys.init
 (add.sum)//function add.sum 0
 @0
 D=A
@@ -16,7 +19,8 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 0
+M=M+1
+//push argument 0
 @1
 D=A
 @ARG
@@ -27,9 +31,11 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 1
+M=M+1
+//push argument 1
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M+D//add
@@ -85,14 +91,16 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 1
+M=M+1
+//push constant 1
 @2
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1//push constant 2
+M=M+1
+//push constant 2
 @add.sum$ret-add-0//***begin call
 D=A
 @SP
@@ -106,28 +114,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @2

@@ -1,10 +1,13 @@
+//This File is generate by translator.
+//Implements by gongqingkui at 126.com
+
 @261
 D=A
 @SP
 M=D//SP=256
 @sys.init
 0;JMP
-//call sys.init
+//jump to sys.init
 (sys.init)//function sys.init 0
 @4000
 D=A
@@ -12,9 +15,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 4000
+M=M+1
+//push constant 4000
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R3
 M=D//pop R3 0
@@ -24,9 +29,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 5000
+M=M+1
+//push constant 5000
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R3
 A=A+1
@@ -44,28 +51,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @0
@@ -82,7 +93,8 @@ M=D//LCL=SP
 0;JMP//goto f//***end call sys.main 0
 (sys.main$ret-add-0)//return-address
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R5
 A=A+1
@@ -112,9 +124,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 4001
+M=M+1
+//push constant 4001
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R3
 M=D//pop R3 0
@@ -124,9 +138,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 5001
+M=M+1
+//push constant 5001
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R3
 A=A+1
@@ -137,9 +153,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 200
+M=M+1
+//push constant 200
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @LCL
 A=M
@@ -151,9 +169,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 40
+M=M+1
+//push constant 40
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @LCL
 A=M
@@ -166,9 +186,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 6
+M=M+1
+//push constant 6
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @LCL
 A=M
@@ -182,7 +204,8 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 123
+M=M+1
+//push constant 123
 @sys.add12$ret-add-1//***begin call
 D=A
 @SP
@@ -196,28 +219,32 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push LCL
+M=M+1
+//push LCL
 @ARG
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push ARG
+M=M+1
+//push ARG
 @THIS
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THIS
+M=M+1
+//push THIS
 @THAT
 D=M
 @SP
 A=M
 M=D
 @SP
-M=M+1//push THAT
+M=M+1
+//push THAT
 @SP
 D=M
 @1
@@ -234,7 +261,8 @@ M=D//LCL=SP
 0;JMP//goto f//***end call sys.add12 1
 (sys.add12$ret-add-1)//return-address
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R5
 M=D//pop R5 0
@@ -248,7 +276,8 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push local 0
+M=M+1
+//push local 0
 @1
 D=A
 @LCL
@@ -259,7 +288,8 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push local 1
+M=M+1
+//push local 1
 @2
 D=A
 @LCL
@@ -270,7 +300,8 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push local 2
+M=M+1
+//push local 2
 @3
 D=A
 @LCL
@@ -281,7 +312,8 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push local 3
+M=M+1
+//push local 3
 @4
 D=A
 @LCL
@@ -292,24 +324,29 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push local 4
+M=M+1
+//push local 4
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M+D//add
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M+D//add
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M+D//add
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M+D//add
@@ -365,9 +402,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 4002
+M=M+1
+//push constant 4002
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R3
 M=D//pop R3 0
@@ -377,9 +416,11 @@ D=A
 A=M
 M=D
 @SP
-M=M+1//push constant 5002
+M=M+1
+//push constant 5002
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 @R3
 A=A+1
@@ -394,16 +435,19 @@ D=M
 A=M
 M=D
 @SP
-M=M+1//push argument 0
+M=M+1
+//push argument 0
 @12
 D=A
 @SP
 A=M
 M=D
 @SP
-M=M+1//push constant 12
+M=M+1
+//push constant 12
 @SP
-AM=M-1
+M=M-1
+A=M
 D=M
 A=A-1
 M=M+D//add

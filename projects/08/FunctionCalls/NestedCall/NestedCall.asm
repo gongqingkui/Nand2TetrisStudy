@@ -1,5 +1,10 @@
+@261
+D=A
+@SP
+M=D//SP=256
 @sys.init
-0;JMP//call sys.init
+0;JMP
+//call sys.init
 (sys.init)//function sys.init 0
 @4000
 D=A
@@ -96,7 +101,11 @@ M=0//init local 2
 A=A+1
 M=0//init local 3
 A=A+1
-M=0//init local 4//function sys.main 5
+M=0//init local 4
+D=A+1
+@SP
+M=D
+//function sys.main 5
 @4001
 D=A
 @SP
@@ -304,8 +313,20 @@ AM=M-1
 D=M
 A=A-1
 M=M+D//add
-@SP//***begin return
-AM=M-1
+@LCL//***begin return
+D=M
+@sys.main$FRAME
+M=D//FRAME=LCL
+@5
+D=A
+@sys.main$FRAME
+A=M-D
+D=M
+@sys.main$RET
+M=D//RET=*(FRAME-5)
+@SP
+M=M-1
+A=M
 D=M
 @ARG
 A=M
@@ -314,10 +335,6 @@ M=D//*ARG=pop()
 D=M+1
 @SP
 M=D//SP=ARG+1
-@LCL
-D=M
-@sys.main$FRAME
-M=D//FRAME=LCL
 @sys.main$FRAME
 AM=M-1
 D=M
@@ -338,11 +355,6 @@ AM=M-1
 D=M
 @LCL
 M=D//LCL=*(FRAME-4)
-@sys.main$FRAME
-AM=M-1
-D=M
-@sys.main$RET
-M=D//RET=*(FRAME-5)
 @sys.main$RET
 A=M
 0;JMP//goto RET//***over return.
@@ -395,8 +407,20 @@ AM=M-1
 D=M
 A=A-1
 M=M+D//add
-@SP//***begin return
-AM=M-1
+@LCL//***begin return
+D=M
+@sys.add12$FRAME
+M=D//FRAME=LCL
+@5
+D=A
+@sys.add12$FRAME
+A=M-D
+D=M
+@sys.add12$RET
+M=D//RET=*(FRAME-5)
+@SP
+M=M-1
+A=M
 D=M
 @ARG
 A=M
@@ -405,10 +429,6 @@ M=D//*ARG=pop()
 D=M+1
 @SP
 M=D//SP=ARG+1
-@LCL
-D=M
-@sys.add12$FRAME
-M=D//FRAME=LCL
 @sys.add12$FRAME
 AM=M-1
 D=M
@@ -429,11 +449,6 @@ AM=M-1
 D=M
 @LCL
 M=D//LCL=*(FRAME-4)
-@sys.add12$FRAME
-AM=M-1
-D=M
-@sys.add12$RET
-M=D//RET=*(FRAME-5)
 @sys.add12$RET
 A=M
 0;JMP//goto RET//***over return.

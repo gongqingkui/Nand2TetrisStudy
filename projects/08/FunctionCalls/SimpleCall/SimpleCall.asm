@@ -1,5 +1,10 @@
+@261
+D=A
+@SP
+M=D//SP=256
 @sys.init
-0;JMP//call sys.init
+0;JMP
+//call sys.init
 (add.sum)//function add.sum 0
 @0
 D=A
@@ -28,8 +33,20 @@ AM=M-1
 D=M
 A=A-1
 M=M+D//add
-@SP//***begin return
-AM=M-1
+@LCL//***begin return
+D=M
+@add.sum$FRAME
+M=D//FRAME=LCL
+@5
+D=A
+@add.sum$FRAME
+A=M-D
+D=M
+@add.sum$RET
+M=D//RET=*(FRAME-5)
+@SP
+M=M-1
+A=M
 D=M
 @ARG
 A=M
@@ -38,10 +55,6 @@ M=D//*ARG=pop()
 D=M+1
 @SP
 M=D//SP=ARG+1
-@LCL
-D=M
-@add.sum$FRAME
-M=D//FRAME=LCL
 @add.sum$FRAME
 AM=M-1
 D=M
@@ -62,11 +75,6 @@ AM=M-1
 D=M
 @LCL
 M=D//LCL=*(FRAME-4)
-@add.sum$FRAME
-AM=M-1
-D=M
-@add.sum$RET
-M=D//RET=*(FRAME-5)
 @add.sum$RET
 A=M
 0;JMP//goto RET//***over return.
@@ -85,7 +93,7 @@ A=M
 M=D
 @SP
 M=M+1//push constant 2
-@add.sum$return-address//***begin call
+@add.sum$ret-add-0//***begin call
 D=A
 @SP
 A=M
@@ -134,7 +142,7 @@ D=M
 M=D//LCL=SP
 @add.sum
 0;JMP//goto f//***end call add.sum 2
-(add.sum$return-address)//return-address
+(add.sum$ret-add-0)//return-address
 (SimpleCall.while)//label SimpleCall.while
 @SimpleCall.while
 0;JMP//goto SimpleCall.while

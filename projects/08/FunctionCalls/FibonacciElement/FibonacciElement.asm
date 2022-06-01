@@ -1,5 +1,10 @@
+@261
+D=A
+@SP
+M=D//SP=256
 @sys.init
-0;JMP//call sys.init
+0;JMP
+//call sys.init
 (main.fibonacci)//function main.fibonacci 0
 @0
 D=A
@@ -59,8 +64,20 @@ A=M
 M=D
 @SP
 M=M+1//push argument 0
-@SP//***begin return
-AM=M-1
+@LCL//***begin return
+D=M
+@main.fibonacci$FRAME
+M=D//FRAME=LCL
+@5
+D=A
+@main.fibonacci$FRAME
+A=M-D
+D=M
+@main.fibonacci$RET
+M=D//RET=*(FRAME-5)
+@SP
+M=M-1
+A=M
 D=M
 @ARG
 A=M
@@ -69,10 +86,6 @@ M=D//*ARG=pop()
 D=M+1
 @SP
 M=D//SP=ARG+1
-@LCL
-D=M
-@main.fibonacci$FRAME
-M=D//FRAME=LCL
 @main.fibonacci$FRAME
 AM=M-1
 D=M
@@ -93,11 +106,6 @@ AM=M-1
 D=M
 @LCL
 M=D//LCL=*(FRAME-4)
-@main.fibonacci$FRAME
-AM=M-1
-D=M
-@main.fibonacci$RET
-M=D//RET=*(FRAME-5)
 @main.fibonacci$RET
 A=M
 0;JMP//goto RET//***over return.
@@ -253,8 +261,20 @@ AM=M-1
 D=M
 A=A-1
 M=M+D//add
-@SP//***begin return
-AM=M-1
+@LCL//***begin return
+D=M
+@None$FRAME
+M=D//FRAME=LCL
+@5
+D=A
+@None$FRAME
+A=M-D
+D=M
+@None$RET
+M=D//RET=*(FRAME-5)
+@SP
+M=M-1
+A=M
 D=M
 @ARG
 A=M
@@ -263,10 +283,6 @@ M=D//*ARG=pop()
 D=M+1
 @SP
 M=D//SP=ARG+1
-@LCL
-D=M
-@None$FRAME
-M=D//FRAME=LCL
 @None$FRAME
 AM=M-1
 D=M
@@ -287,11 +303,6 @@ AM=M-1
 D=M
 @LCL
 M=D//LCL=*(FRAME-4)
-@None$FRAME
-AM=M-1
-D=M
-@None$RET
-M=D//RET=*(FRAME-5)
 @None$RET
 A=M
 0;JMP//goto RET//***over return.

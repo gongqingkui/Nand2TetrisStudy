@@ -4,13 +4,12 @@ import os
 import sys
 
 def vm2asm(file_): 
-    #print(file_)
     commands = parser(file_)
     while hasMoreCommand(commands):
         c = advance(commands)
         #print('%20s%10s%10s%10s' % (c, commandType(c), arg1(c),arg2(c)))
         writeArithmetic(c)
-        writePushPop(c,arg1(c),arg2(c))
+        writePushPop(c,arg1(c),arg2(c),file_)
         writeLabel(c,arg1(c))
         writeGoto(c,arg1(c))
         writeIf(c,arg1(c))
@@ -39,6 +38,5 @@ if __name__ == '__main__':
                 for file_ in files_: 
                     if file_.endswith('.vm'):
                         file_ = os.path.join(root,file_)
-                        #print(file_)
                         vm2asm(file_)
             close()

@@ -1,10 +1,60 @@
-@261
+//This File is generate by translator.
+//Implements by gongqingkui at 126.com
+
+@256
 D=A
 @SP
 M=D//SP=256
+@sys.init$ret-add-0//***begin call
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1//push return-address
+@LCL
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push LCL
+@ARG
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push ARG
+@THIS
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push THIS
+@THAT
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push THAT
+@SP
+D=M
+@0
+D=D-A
+@5
+D=D-A
+@ARG
+M=D//ARG=SP-n-5
+@SP
+D=M
+@LCL
+M=D//LCL=SP
 @sys.init
-0;JMP
-//call sys.init
+0;JMP//goto f//***end call sys.init 0
+(sys.init$ret-add-0)//return-address
 (main.fibonacci)//function main.fibonacci 0
 @0
 D=A
@@ -133,79 +183,6 @@ AM=M-1
 D=M
 A=A-1
 M=M-D//sub
-@main.fibonacci$ret-add-0//***begin call
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1//push return-address
-@LCL
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1//push LCL
-@ARG
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1//push ARG
-@THIS
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1//push THIS
-@THAT
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1//push THAT
-@SP
-D=M
-@1
-D=D-A
-@5
-D=D-A
-@ARG
-M=D//ARG=SP-n-5
-@SP
-D=M
-@LCL
-M=D//LCL=SP
-@main.fibonacci
-0;JMP//goto f//***end call main.fibonacci 1
-(main.fibonacci$ret-add-0)//return-address
-@0
-D=A
-@ARG
-A=M
-A=A+D
-D=M
-@SP
-A=M
-M=D
-@SP
-M=M+1//push argument 0
-@1
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1//push constant 1
-@SP
-AM=M-1
-D=M
-A=A-1
-M=M-D//sub
 @main.fibonacci$ret-add-1//***begin call
 D=A
 @SP
@@ -256,6 +233,79 @@ M=D//LCL=SP
 @main.fibonacci
 0;JMP//goto f//***end call main.fibonacci 1
 (main.fibonacci$ret-add-1)//return-address
+@0
+D=A
+@ARG
+A=M
+A=A+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push argument 0
+@1
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1//push constant 1
+@SP
+AM=M-1
+D=M
+A=A-1
+M=M-D//sub
+@main.fibonacci$ret-add-2//***begin call
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1//push return-address
+@LCL
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push LCL
+@ARG
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push ARG
+@THIS
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push THIS
+@THAT
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1//push THAT
+@SP
+D=M
+@1
+D=D-A
+@5
+D=D-A
+@ARG
+M=D//ARG=SP-n-5
+@SP
+D=M
+@LCL
+M=D//LCL=SP
+@main.fibonacci
+0;JMP//goto f//***end call main.fibonacci 1
+(main.fibonacci$ret-add-2)//return-address
 @SP
 AM=M-1
 D=M
@@ -314,7 +364,7 @@ A=M
 M=D
 @SP
 M=M+1//push constant 4
-@main.fibonacci$ret-add-2//***begin call
+@main.fibonacci$ret-add-3//***begin call
 D=A
 @SP
 A=M
@@ -363,7 +413,7 @@ D=M
 M=D//LCL=SP
 @main.fibonacci
 0;JMP//goto f//***end call main.fibonacci 1
-(main.fibonacci$ret-add-2)//return-address
+(main.fibonacci$ret-add-3)//return-address
 (FibonacciElement.while)//label FibonacciElement.while
 @FibonacciElement.while
 0;JMP//goto FibonacciElement.while

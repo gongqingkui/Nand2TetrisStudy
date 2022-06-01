@@ -8,6 +8,7 @@ from parserVMTranslator import commandType,arg2
 import os
 
 asm_file = None
+vm_file = None
 jmp_index = 0
 current_function_name = None
 call_index = 0
@@ -62,36 +63,48 @@ def writeArithmetic(command):
         asm_file.write(asm_code)
 
 
-def writePushPop(command,segment,index):
+def writePushPop(command,segment,index,vmFile):
     #print(command,segment,index)
     if commandType(command) == 'C_PUSH':
         if segment == 'constant':
             asm_code = '@%s\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1//push constant %s\n'%(index,index)
-        if segment in ['temp','static','pointer']:
+        #if segment in ['temp','static','pointer']:
+        if segment in ['temp','pointer']:
             asm_code = '@%s\nD=A\n@%s\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push %s %s\n'%(index,segment_map[segment],segment,index)
         if segment in ['local','argument','this','that']:
             asm_code = '@%s\nD=A\n@%s\nA=M\nA=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push %s %s\n'%(index,segment_map[segment],segment,index)
+        if segment == 'static':
+            vmFileName = fileBaseName(vmFile,tail=-3)
+            label = '%s.%d'%(vmFileName,index)
+            asm_code = '@%s\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1//push static %s\n'%(label,label)
         asm_file.write(asm_code)
     if commandType(command) == 'C_POP':
         if segment in ['local','argument','this','that']:
             asm_code = '@SP\nAM=M-1\nD=M\n@%s\nA=M\n'%segment_map[segment]
             asm_code += 'A=A+1\n'*index
             asm_code += 'M=D//pop %s %s\n'%(segment_map[segment],index) 
-        if segment in ['temp','static','pointer']:
+        if segment in ['temp','pointer']:
             asm_code = '@SP\nAM=M-1\nD=M\n@%s\n'%segment_map[segment]
             asm_code += 'A=A+1\n'*index
             asm_code += 'M=D//pop %s %s\n'%(segment_map[segment],index) 
+        if segment == 'static':
+            vmFileName = fileBaseName(vmFile,tail=-3)
+            label = '%s.%d'%(vmFileName,index)
+            asm_code = '@SP\nAM=M-1\nD=M\n@%s\nM=D\n//pop static %s\n'%(label,label)
         asm_file.write(asm_code) 
 
 
-def fileBaseName(fname):
-    return os.path.basename(fname.name)[:-4]
+def fileBaseName(fname,tail=-4):
+    if type(fname) == str:
+        return os.path.basename(os.path.abspath(fname))[:tail]
+        #return fname[fname.index('\\'):tail] 
+    return os.path.basename(fname.name)[:tail] 
 
 
 def writeLabel(command,label):
     if commandType(command) == 'C_LABEL':
-        vmFileName = fileBaseName(asm_file)
-        label = '%s.%s'%(vmFileName,label)
+        asmFileName = fileBaseName(asm_file)
+        label = '%s.%s'%(asmFileName,label)
         asm_code = '(%s)//label %s\n'%(label,label)
         #print(command,label,asm_code)
         asm_file.write(asm_code) 
@@ -99,8 +112,8 @@ def writeLabel(command,label):
 
 def writeGoto(command,label):
     if commandType(command) == 'C_GOTO':
-        vmFileName = fileBaseName(asm_file)
-        label = '%s.%s'%(vmFileName,label)
+        asmFileName = fileBaseName(asm_file)
+        label = '%s.%s'%(asmFileName,label)
         asm_code = '@%s\n0;JMP//goto %s\n'%(label,label)
         #print(command,label,asm_code)
         asm_file.write(asm_code) 
@@ -108,8 +121,8 @@ def writeGoto(command,label):
 
 def writeIf(command,label):
     if commandType(command) == 'C_IF':
-        vmFileName = fileBaseName(asm_file)
-        label = '%s.%s'%(vmFileName,label)
+        asmFileName = fileBaseName(asm_file)
+        label = '%s.%s'%(asmFileName,label)
         asm_code = '@SP\nAM=M-1\nD=M\n@%s\nD;JNE//if-goto %s\n'%(label,label)
         #print(command,label,asm_code)
         asm_file.write(asm_code) 
@@ -119,8 +132,8 @@ def writeFunction(command,functionName,numArgs):
     if commandType(command) == 'C_FUNCTION':
         global current_function_name
         current_function_name = functionName
-        #vmFileName = fileBaseName(asm_file)
-        #functionName = '%s.%s'%(vmFileName,functionName)
+        #asmFileName = fileBaseName(asm_file)
+        #functionName = '%s.%s'%(asmFileName,functionName)
         asm_code = '(%s)'%functionName
         if numArgs > 0:
             asm_code += '\n@LCL\nA=M\nM=0//init local 0'
@@ -180,8 +193,8 @@ def writeBootStrap():
     #asm_file.write('@sys.init\n0;JMP\n//call sys.init\n') 
     ########## for simpleCall 
     ########## for staticTest
-    asm_file.write('@256\nD=A\n@SP\nM=D//SP=256\n') 
-    writeCall('call','sys.init',0)
+    asm_file.write('@261\nD=A\n@SP\nM=D//SP=256\n') 
+    asm_file.write('@sys.init\n0;JMP\n//call sys.init\n') 
     ########## for staticTest
     pass
 

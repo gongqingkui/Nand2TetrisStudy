@@ -3,45 +3,71 @@
 # Tokenize module
 # author:gongqingkui AT 126.com
 # date:2023-07-09
+import re
+
+JackCodeBuffer = ""
+
+keywords = ['class','constructor','function',
+            'method','field','static','var',
+            'int','char','boolean','void','true',
+            'false','null','this','let','do',
+            'if','else','while','return']
+
+symbols = "{}[]().,;+-*/&|<>=~" 
 
 def parser(code=None): 
     with open(code, 'r', encoding='gb2312') as f:
         JackCodeBuffer = f.readlines()
+    JackCodeBuffer = "".join(JackCodeBuffer)
+    JackCodeBuffer = re.sub(r'\/[\/*].*','',JackCodeBuffer).replace('\n','').strip()
     return JackCodeBuffer 
 
 
-def hasMoreCommand(JackCodeBuffer):
+def hasMoreTokens(JackCodeBuffer):
     return bool(len(JackCodeBuffer))
 
 
 def advance(JackCodeBuffer): 
-    c = JackCodeBuffer[0]
-    del JackCodeBuffer[0]
-    return c.strip().lower()#.replace(' ','')
+    for kw in keywords:
+        if JackCodeBuffer.find(kw) == 0:
+            return kw 
+    for sb in symbols:
+        if JackCodeBuffer.find(sb) == 0:
+            return sb 
+    if JackCodeBuffer[0] == '"':
+        stringConstant = JackCodeBuffer[0:JackCodeBuffer.find('"',1)]
+        return stringConstant
+    elif re.match(r'\d',JackCodeBuffer):
+        integertConstant = re.match(r'\d',JackCodeBuffer).group(0)
+        return integertConstant 
+    else:
+        identifier = JackCodeBuffer[0:JackCodeBuffer.find(' ')+1]
+        if identifier.find('('):
+            identifier = identifier[0:identifier.find('(')]
+        elif identifier.find(';'):
+           identifier = identifier[0:identifier.find(';')]
+        elif identifier.find(','):
+           identifier = identifier[0:identifier.find(',')]
+        elif identifier.find('.'):
+           identifier = identifier[0:identifier.find('.')]
+        else:
+            return identifier
+        return identifier
 
 
-def JackCodeType(JackCode):
+def tokenType(JackCode):
     if JackCode == '':
         return 'BLANKLINE'
-    elif JackCode.startswith('//'):
-        return 'COMMENT'
-    # coding.............TODO 
-    c = JackCode.split(' ')
-    return 'C_ARITHMETIC' if c[0] in ['add','sub','neg','eq','lt','gt','and','or','not']\
-        else 'C_PUSH' if c[0] == 'push'\
-        else 'C_POP' if c[0] == 'pop'\
-        else 'C_LABEL' if c[0] == 'label'\
-        else 'C_GOTO' if c[0] == 'goto'\
-        else 'C_IF' if c[0] == 'if-goto'\
-        else 'C_FUNCTION' if c[0] == 'function'\
-        else 'C_RETURN' if c[0] == 'return'\
-        else 'C_CALL' if c[0] == 'call' \
-        else 'ERROR VM CODE %s'%JackCode 
+    return 'KEYWORD' if JackCode in keywords\
+        else 'SYMBOL' if JackCode in symbols\
+        else 'STRING_CONST' if JackCode[0] == '"'\
+        else 'INT_CONST' if JackCode[0] in '0123456789'\
+        else 'IDENTIFIER' 
 
 
 if __name__ == '__main__':
     JackCodeBuffer = parser('ArrayTest/main.jack') 
-    print(JackCodeBuffer)
-    while hasMoreCommand(JackCodeBuffer):
+    while hasMoreTokens(JackCodeBuffer):
         c = advance(JackCodeBuffer)
-        print('%20s%10s' % (c, JackCodeType(c)))
+        JackCodeBuffer = JackCodeBuffer[len(c):].strip()
+        print('%20s%10s' % (c, tokenType(c)))
